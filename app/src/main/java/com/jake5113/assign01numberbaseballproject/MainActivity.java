@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -12,7 +13,8 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
     int[] num = new int[3];
-    TextView tv1, tv2, tv3, answer;
+    EditText tv1, tv2, tv3;
+    TextView answer;
     int num1, num2, num3;
     Button btn;
     Random random;
@@ -41,13 +43,23 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.btn);
 
+        answer = findViewById(R.id.answer);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 //입력된 숫자 저장
-                num1 = Integer.parseInt(String.valueOf(tv1.getText()));
-                num2 = Integer.parseInt(String.valueOf(tv2.getText()));
-                num3 = Integer.parseInt(String.valueOf(tv3.getText()));
+                try {
+                    num1 = Integer.parseInt(String.valueOf(tv1.getText()));
+                    num2 = Integer.parseInt(String.valueOf(tv2.getText()));
+                    num3 = Integer.parseInt(String.valueOf(tv3.getText()));
+
+                } catch (Exception e) {
+                    answer.append("잘못입력하셨습니다.\n");
+
+                }
 
                 int strike = 0, ball = 0;
 
@@ -70,14 +82,11 @@ public class MainActivity extends AppCompatActivity {
                     ball++;
                 }
                 if (strike == 3) {
-                    System.out.println("정답!!");
+                    answer.setText("정답");
                 }
-                answer.setText(""+tv1+tv2+tv3+" : " + strike + "strike " + ball + "ball");
+                answer.append("" + num1 + num2 + num3 + "   :   " + strike + "strike   " + ball + "ball\n");
 
             }
         });
-
-
-
-        }
     }
+}
