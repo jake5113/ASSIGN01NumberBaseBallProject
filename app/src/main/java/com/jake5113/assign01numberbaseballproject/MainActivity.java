@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     EditText tv1, tv2, tv3;
     TextView answer;
     int num1, num2, num3;
-    Button btn;
+    Button btn, btnRetry;
     Random random;
 
     @Override
@@ -42,8 +42,51 @@ public class MainActivity extends AppCompatActivity {
         tv3 = findViewById(R.id.num3);
 
         btn = findViewById(R.id.btn);
-
+        btnRetry = findViewById(R.id.btn_retry);
         answer = findViewById(R.id.answer);
+
+
+        tv1.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) tv1.setText("");
+            }
+        });
+        tv2.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if(hasFocus) tv2.setText("");
+            }
+        });
+        tv3.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) tv3.setText("");
+            }
+        });
+
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < 3; i++) {
+                    num[i] = random.nextInt(10);
+                    for (int j = 0; j < i; j++) {
+                        if (num[i] == num[j]) {
+                            i--;
+                            continue;
+                        }
+                    }
+                }
+                answer.setText("새 게임 시작!\n");
+                tv1.setText("");
+                tv2.setText("");
+                tv3.setText("");
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                     answer.setText("정답");
                 }
                 answer.append("" + num1 + num2 + num3 + "   :   " + strike + "strike   " + ball + "ball\n");
-
             }
         });
     }
