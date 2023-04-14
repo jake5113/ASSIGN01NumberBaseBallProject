@@ -84,6 +84,7 @@
         android:text="다시시작!" />
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
